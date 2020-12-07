@@ -12,7 +12,7 @@ object WordsCounter {
     conf.setAppName("Words Counter")
     val sc = new SparkContext(conf)
     //create RDD
-    val rdd = sc.textFile("harrypotter.txt")
+    val rdd = sc.textFile("harrypotter.txt", 4)
     val count = rdd.flatMap(line => line.split(" "))
       .map(word => (word.toLowerCase().filter(x => alphabet contains x), 1)).reduceByKey(_+_)
     count.foreach(f => println(f))
